@@ -133,11 +133,21 @@ function setMapType() {
         satelite_grey.style.display = 'block';
         satelite_selected.style.display = 'none';
         map.setMapTypeId(kakao.maps.MapTypeId.ROADMAP);
+
+        let divs = document.getElementsByClassName('bg_color_change');
+        for (let d of divs) {
+            d.style.backgroundColor = '#dadadabd';
+        }
     } else {
         // 위성뷰
         satelite_grey.style.display = 'none';
         satelite_selected.style.display = 'block';
         map.setMapTypeId(kakao.maps.MapTypeId.HYBRID);
+
+        let divs = document.getElementsByClassName('bg_color_change');
+        for (let d of divs) {
+            d.style.backgroundColor = '#f3f3f3bd';
+        }
     }
 }
 
