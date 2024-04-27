@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <title>RATS</title>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="ajb">
+
+        <!-- js -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e58d2ef781fe0fa2dc40f1e1548213b5&libraries=services,clusterer,drawing"></script>
+        
+        <!-- css -->
+        <link rel="stylesheet" href="./css/font-awesome/css/font-awesome.min.css" type="text/css">
+        <link rel="stylesheet" type="text/css" href="./css/index.css">
+
+        <style>
+            .hide_scroll::-webkit-scrollbar {
+              display: none;
+            }
+            
+            .hide_scroll {
+              -ms-overflow-style: none;  /* IE and 엣지 */
+              scrollbar-width: none;  /* 파이어폭스 */
+            }
+        </style>
+    </head>
+    <body>
+        <div id="map" class="h-full w-full relative">
+            <!--검색창 -->
+            <input type="text" class="search absolute h-12 w-[calc(100%-32px)] px-8 mx-4 mt-4 rounded-[30px] bg-[#d1d1d1bd] z-10 placeholder:text-[#333] outline-none focus:outline-none transition-all ease-in-out lg:w-[400px]" placeholder="&#xF002; 지역, 건물명, 도로명을 검색하세요" onkeypress="if (event.keyCode == 13) {searchPlaces();}"/>
+
+            <!-- 지정 위치 -->
+            <div class="hide_scroll absolute z-10 w-[calc(100%-32px)] whitespace-nowrap overflow-x-auto ml-2 transition-all ease-in-out lg:w-[400px]">
+                <button class="transition-all h-[34px] ml-2 bg-[#d1d1d1bd] text-[#333] rounded-[17px] px-5 py-2 mt-[70px] hover:bg-[#bababa]" onclick="set_location('seoul')">서울</button>
+                <button class="transition-all h-[34px] ml-2 bg-[#d1d1d1bd] text-[#333] rounded-[17px] px-5 py-2 mt-[70px] hover:bg-[#bababa]" onclick="set_location('incheon')">인천</button>
+                <button class="transition-all h-[34px] ml-2 bg-[#d1d1d1bd] text-[#333] rounded-[17px] px-5 py-2 mt-[70px] hover:bg-[#bababa]" onclick="set_location('gyeonggi')">경기도</button>
+                <button class="transition-all h-[34px] ml-2 bg-[#d1d1d1bd] text-[#333] rounded-[17px] px-5 py-2 mt-[70px] hover:bg-[#bababa]" onclick="set_location('gangwon')">강원도</button>
+                <button class="transition-all h-[34px] ml-2 bg-[#d1d1d1bd] text-[#333] rounded-[17px] px-5 py-2 mt-[70px] hover:bg-[#bababa]" onclick="set_location('gyeongsangbuk')">경상북도</button>
+                <button class="transition-all h-[34px] ml-2 bg-[#d1d1d1bd] text-[#333] rounded-[17px] px-5 py-2 mt-[70px] hover:bg-[#bababa]" onclick="set_location('gyeongsangnam')">경상남도</button>
+                <button class="transition-all h-[34px] ml-2 bg-[#d1d1d1bd] text-[#333] rounded-[17px] px-5 py-2 mt-[70px] hover:bg-[#bababa]" onclick="set_location('busan')">부산</button>
+                <button class="transition-all h-[34px] ml-2 bg-[#d1d1d1bd] text-[#333] rounded-[17px] px-5 py-2 mt-[70px] hover:bg-[#bababa]" onclick="set_location('daegu')">대구</button>
+                <button class="transition-all h-[34px] ml-2 bg-[#d1d1d1bd] text-[#333] rounded-[17px] px-5 py-2 mt-[70px] hover:bg-[#bababa]" onclick="set_location('ulsan')">울산</button>
+                <button class="transition-all h-[34px] ml-2 bg-[#d1d1d1bd] text-[#333] rounded-[17px] px-5 py-2 mt-[70px] hover:bg-[#bababa]" onclick="set_location('daejeon')">대전</button>
+                <button class="transition-all h-[34px] ml-2 bg-[#d1d1d1bd] text-[#333] rounded-[17px] px-5 py-2 mt-[70px] hover:bg-[#bababa]" onclick="set_location('sejong')">세종</button>
+                <button class="transition-all h-[34px] ml-2 bg-[#d1d1d1bd] text-[#333] rounded-[17px] px-5 py-2 mt-[70px] hover:bg-[#bababa]" onclick="set_location('chungbuk')">충청북도</button>
+                <button class="transition-all h-[34px] ml-2 bg-[#d1d1d1bd] text-[#333] rounded-[17px] px-5 py-2 mt-[70px] hover:bg-[#bababa]" onclick="set_location('chungnam')">충청남도</button>
+                <button class="transition-all h-[34px] ml-2 bg-[#d1d1d1bd] text-[#333] rounded-[17px] px-5 py-2 mt-[70px] hover:bg-[#bababa]" onclick="set_location('jeonbuk')">전라북도</button>
+                <button class="transition-all h-[34px] ml-2 bg-[#d1d1d1bd] text-[#333] rounded-[17px] px-5 py-2 mt-[70px] hover:bg-[#bababa]" onclick="set_location('jeonnam')">전라남도</button>
+                <button class="transition-all h-[34px] ml-2 bg-[#d1d1d1bd] text-[#333] rounded-[17px] px-5 py-2 mt-[70px] hover:bg-[#bababa]" onclick="set_location('gwangju')">광주</button>
+                <button class="transition-all h-[34px] ml-2 bg-[#d1d1d1bd] text-[#333] rounded-[17px] px-5 py-2 mt-[70px] hover:bg-[#bababa]" onclick="set_location('jeju')">제주도</button>
+            </div>
+            
+            <!-- 위성사진 변경 -->
+            <button id="satelite" class="satelite flex items-center justify-center absolute z-10 w-[60px] h-[60px] rounded-[75px] ml-4 mt-[120px] bg-[#d1d1d1bd]" onclick="setMapType()">
+                <div class="sateliteicon">
+                    <img src="icons/satelite_grey.svg" alt="satelite_grey" id="satelite_grey">
+                    <img src="icons/satelite_selected.svg" alt="satelite_selected" id="satelite_selected" class="hidden">
+                </div>
+            </button>
+
+            <div class="absolute z-10 right-4 mt-[120px]">
+                <!-- 현위치 -->
+                <button class="compass flex items-center justify-center w-[60px] h-[60px] rounded-[75px] bg-[#d1d1d1bd]" onclick="getCurrentPosBtn()">
+                    <div class="compassicon">
+                        <img src="icons/compass_grey.svg" alt="compass"
+                         onmouseover="this.src='icons/compass_selected.svg'"
+                         onmouseout="this.src='icons/compass_grey.svg'">
+                    </div>
+                </button>
+
+                <div class="mt-[10px] w-[60px] h-[100px] flex flex-col items-center justify-center bg-[#d1d1d1bd] rounded-[34px]">
+                    <button class="" onclick="zoomIn()">
+                        <img src="icons/Icon feather-plus.svg" class="w-[25px] h-[25px]" alt="In">
+                    </button>
+                    
+                    <div class="w-[40px] h-[1px] bg-[#707070] opacity-[0.27] mt-[10px] mb-[7px]"></div>
+                    
+                    <button class="w-[25px] h-[25px]" onclick="zoomOut()">
+                        <img src="icons/Icon feather-minus.svg" alt="Out">
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <script type="text/javascript" src="./js/map.js" defer></script>
+    </body>
+</html>
