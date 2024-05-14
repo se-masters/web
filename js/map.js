@@ -11,32 +11,32 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 // 장소 검색 객체를 생성합니다
 var ps = new kakao.maps.services.Places();
 
+let my_location_marker = new kakao.maps.Marker();
 
 // 내 위치 마커 START
 function locationLoadSuccess(pos) {
     // 현재 위치 받아오기
-    var currentPos = new kakao.maps.LatLng(pos.coords.latitude,pos.coords.longitude);
+    var currentPos = new kakao.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
 
     // 지도 이동(기존 위치와 가깝다면 부드럽게 이동)
     map.panTo(currentPos);
 
-    var imageSrc = './icons/mylocation.svg', // 마커이미지의 주소입니다
-    imageSize = new kakao.maps.Size(128, 128), // 마커이미지의 크기입니다
-    imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+    var imageSrc = './icons/me_color.png', // 마커이미지의 주소입니다
+    imageSize = new kakao.maps.Size(50, 60) // 마커이미지의 크기입니다
 
     // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
-    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
+    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize),
     markerPosition = new kakao.maps.LatLng(pos.coords.latitude,pos.coords.longitude); // 마커가 표시될 위치입니다
-    
+
+    // 이전에 있던 마커 제거
+    my_location_marker.setMap(null);
     // 마커 생성
-    var marker = new kakao.maps.Marker({
+    my_location_marker = new kakao.maps.Marker({
         position: markerPosition,
         image: markerImage // 마커이미지 설정 
     });
-
     // 마커가 지도 위에 표시되도록 설정합니다
-    marker.setMap(null);
-    marker.setMap(map);
+    my_location_marker.setMap(map);
 };
 
 function locationLoadError(pos) {
@@ -151,66 +151,146 @@ function setMapType() {
     }
 }
 
-// 급식소 핀
 
-let positions = new Array();
-
-for (let cafeteria of json_data) {
-    try {
-        positions.push(
-            {
-                fcltyNm: cafeteria.fcltyNm._text,
-                rdnmadr: cafeteria.rdnmadr._text,
-                mlsvTrget: cafeteria.mlsvTrget._text,
-                mlsvTime: cafeteria.mlsvTime._text,
-                mlsvDate: cafeteria.mlsvDate._text,
-                phoneNumber: cafeteria.phoneNumber._text,
-                latlng: new kakao.maps.LatLng(Number(cafeteria.latitude._text), Number(cafeteria.longitude._text))
-            }
-        );
-    } catch {}
-};
 
 // 마커 이미지의 이미지 주소입니다
-var imageSrc = "icons/pin_notenadbled.svg";
+let shelterImageSrc = "icons/shelter_color.png";
+let residenceImageSrc = "icons/residence_color.png";
+
+// 마커 이미지의 이미지 크기 입니다
+var imageSize = new kakao.maps.Size(25, 30);
+
 var cafeteria_list_box = document.getElementById('cafeteria_list_box')
-for (var i = 0; i < positions.length; i++) {
 
-    // 마커 이미지의 이미지 크기 입니다
-    var imageSize = new kakao.maps.Size(128, 128);
+// 마커 이미지를 생성합니다
+let shelterMarkerImage = new kakao.maps.MarkerImage(shelterImageSrc, imageSize);
+let residenceMarkerImage = new kakao.maps.MarkerImage(residenceImageSrc, imageSize);
 
-    // 마커 이미지를 생성합니다
-    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 
-    // 마커를 생성합니다
-    displayMarker(positions[i]);
+let shelter_markers = []
+console.log('a')
+
+// const domain = "http://127.0.0.1:8081/"
+// 
+// const shelter_api = "shelter/findAll"
+// const interim_housing = "interimHousing/findAll"
+
+let shelter_li = []
+
+
+let state = undefined;
+
+function useState(init_value) {
+    if (!state) {
+        state = init_value;
+    }
+    function setState(newState) {
+        // let marker_li = []
+
+        // for (let shelter of newState) {
+        //     marker = displayMarker({
+        //         dtlAdres: shelter.dtlAdres, // 주소
+        //         vtAcmdfcltyNm: shelter.vtAcmdfcltyNm, // 시설 이름
+        //         mngpsNm: shelter.mngpsNm, // 관리자 이름
+        //         mngpsTelno: shelter.mngpsTelno, // 관리자 번호
+        //         acmdfcltySENm: shelter.acmdfcltySENm, // 분류
+        //         safe_zone_type: "shelter",
+        //         latlng: new kakao.maps.LatLng(Number(shelter.ycord), Number(shelter.xcord)) // 위도, 경도
+        //     })
+
+        //     marker_li.push(marker);
+        // }
+
+        state = newState;
+    }
+
+    return [state, setState];
 }
 
-function displayMarker(positions) {
+const [ss, setSS] = useState([]);
+
+setTimeout(() => {setSS(10)}, 1000);
+setTimeout(() => {console.log('ddd', ss)}, 1500);
+// axios.get(domain + shelter_api)
+// .then((response) => {
+//     setSS(response.data);
+//     console.log("ff", ss)
+//     // console.log('tttt', response.data)
+// });
+// // setTimeout(console.log(shelter_li), 2000);
+// console.log('aaaa', ss);
+
+// console.log(shelter_li);
+
+// shelter_li = getShelters();
+// console.log(shelter_li);
+
+// let count = 0;
+// for (let shelter of shelter_li) {
+//     displayMarker({
+//         dtlAdres: shelter.dtlAdres, // 주소
+//         vtAcmdfcltyNm: shelter.vtAcmdfcltyNm, // 시설 이름
+//         mngpsNm: shelter.mngpsNm, // 관리자 이름
+//         mngpsTelno: shelter.mngpsTelno, // 관리자 번호
+//         acmdfcltySENm: shelter.acmdfcltySENm, // 분류
+//         safe_zone_type: "shelter",
+//         latlng: new kakao.maps.LatLng(Number(shelter.ycord), Number(shelter.xcord)) // 위도, 경도
+//     })
+//     // count++;
+//     // if (count == 10) break;
+// }
+
+
+// console.log(shelter_li);
+
+// setTimeout(console.log(shelter_li), 1000);
+
+function displayMarker(location) {
+    if (location.safe_zone_type == "shelter") {
+        var markerImage = shelterMarkerImage;
+    } else {
+        var markerImage = residenceMarkerImage;
+    }
+
     var marker = new kakao.maps.Marker({
         map: map,
-        position: positions.latlng, // 마커를 표시할 위치
-        // title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+        position: location.latlng, // 마커를 표시할 위치
         image : markerImage, // 마커 이미지
-        // clickable: true
     });
+    shelter_li.push(marker);
 
     // 마커에 클릭이벤트를 등록합니다
     kakao.maps.event.addListener(marker, 'click', function() {
-        document.getElementsByClassName('cafeteria_list_box')[0].style.display = "block";
+        document.getElementsByClassName('safe_zone_box')[0].style.display = "flex";
+        document.getElementsByClassName('safe_zone_name')[0].innerText = location.vtAcmdfcltyNm;
+        document.getElementsByClassName('address')[0].innerText = location.dtlAdres;
+        document.getElementsByClassName('category')[0].innerText = location.acmdfcltySENm;
+        if (location.mngpsTelno != "") {
+            document.getElementsByClassName('manager_name')[0].innerText = location.mngpsNm;
+            document.getElementsByClassName('manager_box')[0].style.display = "block";
+        } else {
+            document.getElementsByClassName('manager_box')[0].style.display = "none";
+        }
 
-        document.getElementsByClassName('cafeteria_name')[0].innerText = positions.fcltyNm;
-        document.getElementsByClassName('cafeteria_address')[0].innerText = positions.rdnmadr;
-        document.getElementsByClassName('target_person')[0].innerText = positions.mlsvTrget;
-        document.getElementsByClassName('time')[0].innerText = positions.mlsvTime;
-        document.getElementsByClassName('day_of_the_week')[0].innerText = positions.mlsvDate;
-        document.getElementsByClassName('call')[0].href = "tel:" + positions.phoneNumber;
-        if (positions.phoneNumber == undefined) {
-            alert('해당 급식소의 전화번호가 없습니다.');
+        if (location.mngpsTelno != "") {
+            document.getElementsByClassName('manager_phnum')[0].href = "tel:" + location.mngpsTelno;
+            document.getElementsByClassName('manager_phnum')[0].style.display = "block";
+        } else {
+            document.getElementsByClassName('manager_phnum')[0].style.display = "none";
         }
     });
+
+    // shelter_markers.push(marker);
+    return marker;
 }
 
-function close_cafeteria_list_box() {
-    document.getElementsByClassName('cafeteria_list_box')[0].style.display = "none";
+
+function close_safe_zone_box() {
+    document.getElementsByClassName('safe_zone_box')[0].style.display = "none";
 }
+
+
+
+setTimeout(() => {
+    console.log(ss);
+}, 10000);

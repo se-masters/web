@@ -5,6 +5,12 @@ html, body {
     height: 100%;
 }
 
+@font-face {
+    src : url("../font/GmarketSansTTF/GmarketSansTTFMedium.ttf");
+    font-family: GmarketSansTTF;
+    font-display: swap;
+}
+
 * {
-    font-family: FontAwesome;
+    font-family: GmarketSansTTF, FontAwesome;
 }

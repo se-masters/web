@@ -2,13 +2,17 @@
 <html lang="ko">
     <head>
         <title>RATS</title>
-
+        
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="author" content="ajb">
-
+        
         <!-- js -->
+        <script type="text/javascript" src="./js/map.js" defer></script>
+        <script type="text/javascript" src="./js/parse.js"></script>
         <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e58d2ef781fe0fa2dc40f1e1548213b5&libraries=services,clusterer,drawing"></script>
         
         <!-- css -->
@@ -51,7 +55,7 @@
                 <button class="bg_color_change transition-all h-[34px] ml-2 bg-[#dadadabd] text-[#333] rounded-[17px] px-5 py-2 hover:bg-[#bababa]" onclick="set_location('gwangju')">광주</button>
                 <button class="bg_color_change transition-all h-[34px] ml-2 bg-[#dadadabd] text-[#333] rounded-[17px] px-5 py-2 hover:bg-[#bababa]" onclick="set_location('jeju')">제주도</button>
             </div>
-            
+
             <!-- 위성사진 변경 -->
             <button id="satelite" class="bg_color_change satelite flex items-center justify-center absolute z-10 w-[60px] h-[60px] rounded-[75px] ml-4 mt-[120px] bg-[#dadadabd]" onclick="setMapType()">
                 <div class="sateliteicon">
@@ -60,6 +64,7 @@
                 </div>
             </button>
 
+            <!-- 우측 버튼 세트 -->
             <div class="absolute z-10 right-4 mt-[120px]">
                 <!-- 현위치 -->
                 <button class="bg_color_change compass flex items-center justify-center w-[60px] h-[60px] rounded-[75px] bg-[#dadadabd]" onclick="getCurrentPosBtn()">
@@ -83,7 +88,39 @@
                 </div>
             </div>
 
-            <div class="bg_color_change absolute flex justify-evenly items-center py-3 z-10 bg-[#dadadabd] w-[calc(100%-32px)] rounded-[35px] bottom-[30px] mx-4 transition-all ease-in-out lg:w-[400px]" style="position:fixed; z-index: 2; display: flex;">
+            <div class="safe_zone_box bg_color_change absolute hidden justify-center items-center px-6 py-4 z-10 w-[calc(100%-32px)] bottom-[100px] bg-[#dadadabd] rounded-[35px] mx-4 transition-all ease-in-out lg:w-[400px]">
+                <div class="w-full">
+                    <div class="flex justify-between">
+                        <p class="safe_zone_name text-[25px]">금오공과대학교</p>
+                        <img src="icons/cancel_grey.svg" alt="cancel" class="cursor-pointer" onclick="close_safe_zone_box()" width="20px" height="20px">
+                    </div>
+
+                    <div>
+                        <p class="address text-[15px] text-[#707070]">경상북도 구미시 금오공과대학교</p>
+                    </div>
+
+
+                    <div class="mt-3">
+                        <p class="text-[15px] text-[#707070]">분류</p>
+                        <p class="category text-[20px]">학교</p>
+                    </div>
+
+                    <div class="flex justify-between mt-2">
+                        <div class="manager_box">
+                            <p class="text-[15px] text-[#707070]">담당자</p>
+                            <p class="manager_name text-[20px]">ajb</p>
+                        </div>
+                        <a class="manager_phnum">
+                            <div class="flex justify-center items-center w-[50px] h-[50px] bg-[#66cc54] rounded-[14px] cursor-pointer hover:bg-[#148300]">
+                                <i class="fa fa-phone" aria-hidden="true" style="color: #ffffff; font-size: 30px;"></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 하단바 -->
+            <div class="bg_color_change flex fixed justify-evenly items-center py-3 z-10 bg-[#dadadabd] w-[calc(100%-32px)] rounded-[35px] bottom-[30px] mx-4 transition-all ease-in-out lg:w-[400px]">
                 <div>
                     <img src="icons/map_green.svg" alt="map">
                 </div>
@@ -95,7 +132,29 @@
                 </div>
             </div>
         </div>
-        
-        <script type="text/javascript" src="./js/map.js" defer></script>
+
+        <div class="variable hidden"></div>
+
     </body>
+    <script>
+        let shelters = null;
+        // shelter_li = fetchShelters();
+        // shelter_li.then((value) => {
+            // shelters = value;
+            // console.log(value);
+        // });
+        // console.log(shelters);
+        // console.log(shelter_li);
+
+        // axios.get('http://localhost:8081/shelter/findAll')
+        // .then((response) => {
+            // shelters = response.data;
+        // })
+// 
+        // while (shelters != null) {
+            // console.log(1, shelters);
+        // }
+        
+
+    </script>
 </html>
