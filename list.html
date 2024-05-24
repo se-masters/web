@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>근처 대피소</title>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="ajb">
+
+        <!-- js -->
+        <script type="text/javascript" src="./js/variable.js" defer></script>
+        <script type="text/javascript" src="./js/list.js" defer></script>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+        <!-- css -->
+        <link rel="stylesheet" href="./css/font-awesome/css/font-awesome.min.css" type="text/css">
+        <link rel="stylesheet" type="text/css" href="./css/index.css">
+    </head>
+
+    <body>
+        <div class="flex justify-center pt-5">
+            <div class="w-[400px] mx-4">
+                <p class="text-[25px] text-[#111] font-semibold">회원님의 위치 근처</p>
+                <p class="text-[25px] text-[#00CCFF] font-bold">긴급대피소 리스트</p>
+
+                <div class="safe_zone_list mt-4 mb-28">
+                </div>
+            </div>
+        </div>
+
+        <!-- 하단바 -->
+        <div class="bg_color_change flex fixed justify-evenly items-center py-3 z-10 bg-[#dadadabd] w-[calc(100%-32px)] rounded-[35px] bottom-[30px] mx-4 transition-all ease-in-out lg:w-[400px]">
+            <div>
+                <button onClick="location.href='/'"><img src="icons/map_grey.svg" alt="map"></button>
+            </div>
+            <div>
+                <img src="icons/list_selected.svg" alt="list">
+            </div>
+            <div>
+                <button onClick="location.href='information.html'"><img src="icons/settings_grey.svg" alt="setting"></button>
+            </div>
+        </div>
+    </body>
+</html>

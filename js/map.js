@@ -1,9 +1,22 @@
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-    mapOption = {
-        center: new kakao.maps.LatLng(37.56646, 126.98121), // 지도의 중심좌표
-        level: 3, // 지도의 확대 레벨
-        mapTypeId : kakao.maps.MapTypeId.ROADMAP // 지도종류
-    };
+const urlParams = new URLSearchParams(window.location.search);
+let x = urlParams.get('x');
+let y = urlParams.get('y');
+let id = urlParams.get('id');
+
+if (x == null || y == null) {
+    x = 37.56646;
+    y = 126.98121;
+}
+
+if (id == null) {
+    id = "";
+}
+
+var mapContainer = document.getElementById('map'), mapOption = {
+    center: new kakao.maps.LatLng(x, y), // 지도의 중심좌표
+    level: 3, // 지도의 확대 레벨
+    mapTypeId : kakao.maps.MapTypeId.ROADMAP // 지도종류
+};
 
 // 지도를 생성합니다
 var map = new kakao.maps.Map(mapContainer, mapOption);
@@ -152,7 +165,6 @@ function setMapType() {
 }
 
 
-
 // 마커 이미지의 이미지 주소입니다
 let shelterImageSrc = "icons/shelter_color.png";
 let residenceImageSrc = "icons/residence_color.png";
@@ -166,84 +178,54 @@ var cafeteria_list_box = document.getElementById('cafeteria_list_box')
 let shelterMarkerImage = new kakao.maps.MarkerImage(shelterImageSrc, imageSize);
 let residenceMarkerImage = new kakao.maps.MarkerImage(residenceImageSrc, imageSize);
 
+let marker;
+let shelter_marker_list = []
+let interim_housing_list = []
 
-let shelter_markers = []
-console.log('a')
+// 대피소 마커 생성
+let marker_json;
+axios.get(domain + shelter_api).then((response) => {
+    for (let shelter of response.data) {
+        marker_json = {
+            dtlAdres: shelter.dtlAdres, // 주소
+            vtAcmdfcltyNm: shelter.vtAcmdfcltyNm, // 시설 이름
+            mngpsNm: shelter.mngpsNm, // 관리자 이름
+            mngpsTelno: shelter.mngpsTelno, // 관리자 번호
+            acmdfcltySENm: shelter.acmdfcltySENm, // 분류
+            safe_zone_type: "shelter",
+            latlng: new kakao.maps.LatLng(Number(shelter.ycord), Number(shelter.xcord)) // 위도, 경도
+        }
 
-// const domain = "http://127.0.0.1:8081/"
-// 
-// const shelter_api = "shelter/findAll"
-// const interim_housing = "interimHousing/findAll"
+        if (id === shelter.id.toString()) {
+            open_safe_zone_box(marker_json)
+            map.panTo(marker_json.latlng);
+        }
+        
+        marker = displayMarker(marker_json)
 
-let shelter_li = []
-
-
-let state = undefined;
-
-function useState(init_value) {
-    if (!state) {
-        state = init_value;
+        shelter_marker_list.push(marker);
     }
-    function setState(newState) {
-        // let marker_li = []
+});
 
-        // for (let shelter of newState) {
-        //     marker = displayMarker({
-        //         dtlAdres: shelter.dtlAdres, // 주소
-        //         vtAcmdfcltyNm: shelter.vtAcmdfcltyNm, // 시설 이름
-        //         mngpsNm: shelter.mngpsNm, // 관리자 이름
-        //         mngpsTelno: shelter.mngpsTelno, // 관리자 번호
-        //         acmdfcltySENm: shelter.acmdfcltySENm, // 분류
-        //         safe_zone_type: "shelter",
-        //         latlng: new kakao.maps.LatLng(Number(shelter.ycord), Number(shelter.xcord)) // 위도, 경도
-        //     })
+// 임시주거시설 마커 생성
+axios.get(domain + interim_housing_api).then((response) => {
+    for (let shelter of response.data) {
+        marker = displayMarker({
+            dtlAdres: shelter.rn_adres, // 주소
+            vtAcmdfcltyNm: shelter.vt_acmdfclty_nm, // 시설 이름
+            mngpsNm: shelter.mngps_nm, // 관리자 이름
+            mngpsTelno: shelter.mngps_telno, // 관리자 번호
+            acmdfcltySENm: shelter.acmdfclty_dtl_cn, // 분류
+            safe_zone_type: "interim_housing",
+            latlng: new kakao.maps.LatLng(Number(shelter.ycord), Number(shelter.xcord)) // 위도, 경도
+        })
 
-        //     marker_li.push(marker);
-        // }
+        // 숨겨두기
+        marker.setVisible(false);
 
-        state = newState;
+        interim_housing_list.push(marker);
     }
-
-    return [state, setState];
-}
-
-const [ss, setSS] = useState([]);
-
-setTimeout(() => {setSS(10)}, 1000);
-setTimeout(() => {console.log('ddd', ss)}, 1500);
-// axios.get(domain + shelter_api)
-// .then((response) => {
-//     setSS(response.data);
-//     console.log("ff", ss)
-//     // console.log('tttt', response.data)
-// });
-// // setTimeout(console.log(shelter_li), 2000);
-// console.log('aaaa', ss);
-
-// console.log(shelter_li);
-
-// shelter_li = getShelters();
-// console.log(shelter_li);
-
-// let count = 0;
-// for (let shelter of shelter_li) {
-//     displayMarker({
-//         dtlAdres: shelter.dtlAdres, // 주소
-//         vtAcmdfcltyNm: shelter.vtAcmdfcltyNm, // 시설 이름
-//         mngpsNm: shelter.mngpsNm, // 관리자 이름
-//         mngpsTelno: shelter.mngpsTelno, // 관리자 번호
-//         acmdfcltySENm: shelter.acmdfcltySENm, // 분류
-//         safe_zone_type: "shelter",
-//         latlng: new kakao.maps.LatLng(Number(shelter.ycord), Number(shelter.xcord)) // 위도, 경도
-//     })
-//     // count++;
-//     // if (count == 10) break;
-// }
-
-
-// console.log(shelter_li);
-
-// setTimeout(console.log(shelter_li), 1000);
+});
 
 function displayMarker(location) {
     if (location.safe_zone_type == "shelter") {
@@ -251,46 +233,71 @@ function displayMarker(location) {
     } else {
         var markerImage = residenceMarkerImage;
     }
-
+    
     var marker = new kakao.maps.Marker({
         map: map,
         position: location.latlng, // 마커를 표시할 위치
         image : markerImage, // 마커 이미지
     });
-    shelter_li.push(marker);
 
     // 마커에 클릭이벤트를 등록합니다
     kakao.maps.event.addListener(marker, 'click', function() {
-        document.getElementsByClassName('safe_zone_box')[0].style.display = "flex";
-        document.getElementsByClassName('safe_zone_name')[0].innerText = location.vtAcmdfcltyNm;
-        document.getElementsByClassName('address')[0].innerText = location.dtlAdres;
-        document.getElementsByClassName('category')[0].innerText = location.acmdfcltySENm;
-        if (location.mngpsTelno != "") {
-            document.getElementsByClassName('manager_name')[0].innerText = location.mngpsNm;
-            document.getElementsByClassName('manager_box')[0].style.display = "block";
-        } else {
-            document.getElementsByClassName('manager_box')[0].style.display = "none";
-        }
-
-        if (location.mngpsTelno != "") {
-            document.getElementsByClassName('manager_phnum')[0].href = "tel:" + location.mngpsTelno;
-            document.getElementsByClassName('manager_phnum')[0].style.display = "block";
-        } else {
-            document.getElementsByClassName('manager_phnum')[0].style.display = "none";
-        }
+        open_safe_zone_box(location)
     });
 
-    // shelter_markers.push(marker);
     return marker;
 }
 
+
+function open_safe_zone_box(location) {
+    document.getElementsByClassName('safe_zone_box')[0].style.display = "flex";
+    document.getElementsByClassName('safe_zone_name')[0].innerText = location.vtAcmdfcltyNm;
+    document.getElementsByClassName('address')[0].innerText = location.dtlAdres;
+    document.getElementsByClassName('category')[0].innerText = location.acmdfcltySENm;
+    if (location.mngpsTelno != "") {
+        document.getElementsByClassName('manager_name')[0].innerText = location.mngpsNm;
+        document.getElementsByClassName('manager_box')[0].style.display = "block";
+    } else {
+        document.getElementsByClassName('manager_box')[0].style.display = "none";
+    }
+
+    if (location.mngpsTelno != "") {
+        document.getElementsByClassName('manager_phnum')[0].href = "tel:" + location.mngpsTelno;
+        document.getElementsByClassName('manager_phnum')[0].style.display = "block";
+    } else {
+        document.getElementsByClassName('manager_phnum')[0].style.display = "none";
+    }
+}
 
 function close_safe_zone_box() {
     document.getElementsByClassName('safe_zone_box')[0].style.display = "none";
 }
 
 
+// interim_housing
+let now_pin = "shelter"
 
-setTimeout(() => {
-    console.log(ss);
-}, 10000);
+
+function change_pin() {
+    if (now_pin === "shelter") {
+        for (let shelter of shelter_marker_list) {
+            shelter.setVisible(false);
+        }
+
+        for (let shelter of interim_housing_list) {
+            shelter.setVisible(true);
+        }
+
+        now_pin = "interim_housing";
+    } else if (now_pin === "interim_housing") {
+        for (let shelter of shelter_marker_list) {
+            shelter.setVisible(true);
+        }
+
+        for (let shelter of interim_housing_list) {
+            shelter.setVisible(false);
+        }
+
+        now_pin = "shelter";
+    }
+}

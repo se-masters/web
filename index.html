@@ -8,8 +8,8 @@
         <meta name="author" content="ajb">
         
         <!-- js -->
+        <script type="text/javascript" src="./js/variable.js" defer></script>
         <script type="text/javascript" src="./js/map.js" defer></script>
-        <script type="text/javascript" src="./js/parse.js"></script>
         <script src="https://cdn.tailwindcss.com"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
@@ -75,6 +75,7 @@
                     </div>
                 </button>
 
+                <!-- 줌인/아웃 -->
                 <div class="bg_color_change mt-[10px] w-[60px] h-[100px] flex flex-col items-center justify-center bg-[#dadadabd] rounded-[34px]">
                     <button class="" onclick="zoomIn()">
                         <img src="icons/Icon feather-plus.svg" class="w-[25px] h-[25px]" alt="In">
@@ -88,6 +89,15 @@
                 </div>
             </div>
 
+            <!-- 테스트용 대피소 종류 전환 버튼 -->
+            <button id="satelite" class="bg_color_change satelite flex items-center justify-center absolute z-10 w-[60px] h-[60px] rounded-[75px] ml-4 mt-[190px] bg-[#dadadabd]" onclick="change_pin()">
+                <div class="sateliteicon">
+                    <img src="icons/satelite_grey.svg" alt="satelite_grey" id="satelite_grey">
+                    <img src="icons/satelite_selected.svg" alt="satelite_selected" id="satelite_selected" class="hidden">
+                </div>
+            </button>
+
+            <!-- 대피소 상세정보 -->
             <div class="safe_zone_box bg_color_change absolute hidden justify-center items-center px-6 py-4 z-10 w-[calc(100%-32px)] bottom-[100px] bg-[#dadadabd] rounded-[35px] mx-4 transition-all ease-in-out lg:w-[400px]">
                 <div class="w-full">
                     <div class="flex justify-between">
@@ -122,7 +132,7 @@
             <!-- 하단바 -->
             <div class="bg_color_change flex fixed justify-evenly items-center py-3 z-10 bg-[#dadadabd] w-[calc(100%-32px)] rounded-[35px] bottom-[30px] mx-4 transition-all ease-in-out lg:w-[400px]">
                 <div>
-                    <img src="icons/map_green.svg" alt="map">
+                    <img src="icons/map_selected.svg" alt="map">
                 </div>
                 <div>
                     <button onClick="location.href='list.html'"><img src="icons/list_grey.svg" alt="list"></button>
@@ -136,25 +146,4 @@
         <div class="variable hidden"></div>
 
     </body>
-    <script>
-        let shelters = null;
-        // shelter_li = fetchShelters();
-        // shelter_li.then((value) => {
-            // shelters = value;
-            // console.log(value);
-        // });
-        // console.log(shelters);
-        // console.log(shelter_li);
-
-        // axios.get('http://localhost:8081/shelter/findAll')
-        // .then((response) => {
-            // shelters = response.data;
-        // })
-// 
-        // while (shelters != null) {
-            // console.log(1, shelters);
-        // }
-        
-
-    </script>
 </html>
