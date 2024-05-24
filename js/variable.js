@@ -1,4 +1,4 @@
-const domain = "https://map.ajb.kr/api/"
+const domain = "/api/"
 
 const shelter_api = "shelter/findAll"
 const interim_housing_api = "interimHousing/findAll"
