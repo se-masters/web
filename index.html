@@ -37,24 +37,24 @@
             <input type="text" class="bg_color_change search absolute h-12 w-[calc(100%-32px)] px-8 mx-4 mt-4 rounded-[30px] bg-[#dadadabd] z-10 placeholder:text-[#333] outline-none focus:outline-none transition-all ease-in-out lg:w-[400px]" placeholder="&#xF002; 지역, 건물명, 도로명을 검색하세요" onkeypress="if (event.keyCode == 13) {searchPlaces();}"/>
 
             <!-- 지정 위치 -->
-            <div class="hide_scroll absolute z-10 w-[calc(100%-32px)] whitespace-nowrap overflow-x-auto ml-2 transition-all ease-in-out lg:w-[400px] top-[70px]">
-                <button class="bg_color_change transition-all h-[34px] ml-2 bg-[#dadadabd] text-[#333] rounded-[17px] px-5 py-2 hover:bg-[#bababa]" onclick="set_location('seoul')">서울</button>
-                <button class="bg_color_change transition-all h-[34px] ml-2 bg-[#dadadabd] text-[#333] rounded-[17px] px-5 py-2 hover:bg-[#bababa]" onclick="set_location('incheon')">인천</button>
-                <button class="bg_color_change transition-all h-[34px] ml-2 bg-[#dadadabd] text-[#333] rounded-[17px] px-5 py-2 hover:bg-[#bababa]" onclick="set_location('gyeonggi')">경기도</button>
-                <button class="bg_color_change transition-all h-[34px] ml-2 bg-[#dadadabd] text-[#333] rounded-[17px] px-5 py-2 hover:bg-[#bababa]" onclick="set_location('gangwon')">강원도</button>
-                <button class="bg_color_change transition-all h-[34px] ml-2 bg-[#dadadabd] text-[#333] rounded-[17px] px-5 py-2 hover:bg-[#bababa]" onclick="set_location('gyeongsangbuk')">경상북도</button>
-                <button class="bg_color_change transition-all h-[34px] ml-2 bg-[#dadadabd] text-[#333] rounded-[17px] px-5 py-2 hover:bg-[#bababa]" onclick="set_location('gyeongsangnam')">경상남도</button>
-                <button class="bg_color_change transition-all h-[34px] ml-2 bg-[#dadadabd] text-[#333] rounded-[17px] px-5 py-2 hover:bg-[#bababa]" onclick="set_location('busan')">부산</button>
-                <button class="bg_color_change transition-all h-[34px] ml-2 bg-[#dadadabd] text-[#333] rounded-[17px] px-5 py-2 hover:bg-[#bababa]" onclick="set_location('daegu')">대구</button>
-                <button class="bg_color_change transition-all h-[34px] ml-2 bg-[#dadadabd] text-[#333] rounded-[17px] px-5 py-2 hover:bg-[#bababa]" onclick="set_location('ulsan')">울산</button>
-                <button class="bg_color_change transition-all h-[34px] ml-2 bg-[#dadadabd] text-[#333] rounded-[17px] px-5 py-2 hover:bg-[#bababa]" onclick="set_location('daejeon')">대전</button>
-                <button class="bg_color_change transition-all h-[34px] ml-2 bg-[#dadadabd] text-[#333] rounded-[17px] px-5 py-2 hover:bg-[#bababa]" onclick="set_location('sejong')">세종</button>
-                <button class="bg_color_change transition-all h-[34px] ml-2 bg-[#dadadabd] text-[#333] rounded-[17px] px-5 py-2 hover:bg-[#bababa]" onclick="set_location('chungbuk')">충청북도</button>
-                <button class="bg_color_change transition-all h-[34px] ml-2 bg-[#dadadabd] text-[#333] rounded-[17px] px-5 py-2 hover:bg-[#bababa]" onclick="set_location('chungnam')">충청남도</button>
-                <button class="bg_color_change transition-all h-[34px] ml-2 bg-[#dadadabd] text-[#333] rounded-[17px] px-5 py-2 hover:bg-[#bababa]" onclick="set_location('jeonbuk')">전라북도</button>
-                <button class="bg_color_change transition-all h-[34px] ml-2 bg-[#dadadabd] text-[#333] rounded-[17px] px-5 py-2 hover:bg-[#bababa]" onclick="set_location('jeonnam')">전라남도</button>
-                <button class="bg_color_change transition-all h-[34px] ml-2 bg-[#dadadabd] text-[#333] rounded-[17px] px-5 py-2 hover:bg-[#bababa]" onclick="set_location('gwangju')">광주</button>
-                <button class="bg_color_change transition-all h-[34px] ml-2 bg-[#dadadabd] text-[#333] rounded-[17px] px-5 py-2 hover:bg-[#bababa]" onclick="set_location('jeju')">제주도</button>
+            <div class="hide_scroll absolute z-10 w-[calc(100%-32px)] whitespace-nowrap overflow-x-auto ml-2 text-[#333] transition-all ease-in-out lg:w-[400px] top-[70px]">
+                <button class="bg_color_change transition-all h-[34px] ml-2 bg-[#dadadabd] rounded-[17px] px-5 py-2 hover:bg-[#bababa]" onclick="set_location('seoul')">서울</button>
+                <button class="bg_color_change transition-all h-[34px] ml-2 bg-[#dadadabd] rounded-[17px] px-5 py-2 hover:bg-[#bababa]" onclick="set_location('incheon')">인천</button>
+                <button class="bg_color_change transition-all h-[34px] ml-2 bg-[#dadadabd] rounded-[17px] px-5 py-2 hover:bg-[#bababa]" onclick="set_location('gyeonggi')">경기도</button>
+                <button class="bg_color_change transition-all h-[34px] ml-2 bg-[#dadadabd] rounded-[17px] px-5 py-2 hover:bg-[#bababa]" onclick="set_location('gangwon')">강원도</button>
+                <button class="bg_color_change transition-all h-[34px] ml-2 bg-[#dadadabd] rounded-[17px] px-5 py-2 hover:bg-[#bababa]" onclick="set_location('gyeongsangbuk')">경상북도</button>
+                <button class="bg_color_change transition-all h-[34px] ml-2 bg-[#dadadabd] rounded-[17px] px-5 py-2 hover:bg-[#bababa]" onclick="set_location('gyeongsangnam')">경상남도</button>
+                <button class="bg_color_change transition-all h-[34px] ml-2 bg-[#dadadabd] rounded-[17px] px-5 py-2 hover:bg-[#bababa]" onclick="set_location('busan')">부산</button>
+                <button class="bg_color_change transition-all h-[34px] ml-2 bg-[#dadadabd] rounded-[17px] px-5 py-2 hover:bg-[#bababa]" onclick="set_location('daegu')">대구</button>
+                <button class="bg_color_change transition-all h-[34px] ml-2 bg-[#dadadabd] rounded-[17px] px-5 py-2 hover:bg-[#bababa]" onclick="set_location('ulsan')">울산</button>
+                <button class="bg_color_change transition-all h-[34px] ml-2 bg-[#dadadabd] rounded-[17px] px-5 py-2 hover:bg-[#bababa]" onclick="set_location('daejeon')">대전</button>
+                <button class="bg_color_change transition-all h-[34px] ml-2 bg-[#dadadabd] rounded-[17px] px-5 py-2 hover:bg-[#bababa]" onclick="set_location('sejong')">세종</button>
+                <button class="bg_color_change transition-all h-[34px] ml-2 bg-[#dadadabd] rounded-[17px] px-5 py-2 hover:bg-[#bababa]" onclick="set_location('chungbuk')">충청북도</button>
+                <button class="bg_color_change transition-all h-[34px] ml-2 bg-[#dadadabd] rounded-[17px] px-5 py-2 hover:bg-[#bababa]" onclick="set_location('chungnam')">충청남도</button>
+                <button class="bg_color_change transition-all h-[34px] ml-2 bg-[#dadadabd] rounded-[17px] px-5 py-2 hover:bg-[#bababa]" onclick="set_location('jeonbuk')">전라북도</button>
+                <button class="bg_color_change transition-all h-[34px] ml-2 bg-[#dadadabd] rounded-[17px] px-5 py-2 hover:bg-[#bababa]" onclick="set_location('jeonnam')">전라남도</button>
+                <button class="bg_color_change transition-all h-[34px] ml-2 bg-[#dadadabd] rounded-[17px] px-5 py-2 hover:bg-[#bababa]" onclick="set_location('gwangju')">광주</button>
+                <button class="bg_color_change transition-all h-[34px] ml-2 bg-[#dadadabd] rounded-[17px] px-5 py-2 hover:bg-[#bababa]" onclick="set_location('jeju')">제주도</button>
             </div>
 
             <!-- 로딩 -->
