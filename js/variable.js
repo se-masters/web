@@ -1,4 +1,4 @@
-const domain = "/api/"
+const domain = window.location.origin + "/api/"
 
 const shelter_api = "shelter/findAll"
 const interim_housing_api = "interimHousing/findAll"
