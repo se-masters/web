@@ -10,6 +10,8 @@ if (x == null || y == null) {
 
 if (id == null) {
     id = "";
+} else {
+    document.getElementsByClassName('loading_box')[0].style.display = "flex";
 }
 
 var mapContainer = document.getElementById('map'), mapOption = {
@@ -199,6 +201,11 @@ axios.get(domain + shelter_api).then((response) => {
         if (id === shelter.id.toString()) {
             open_safe_zone_box(marker_json)
             map.panTo(marker_json.latlng);
+
+            document.getElementsByClassName('loading_box')[0].style.opacity = "0";
+            setTimeout(() => {
+                document.getElementsByClassName('loading_box')[0].style.display = "none";
+            }, 1500);
         }
         
         marker = displayMarker(marker_json)

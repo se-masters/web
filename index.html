@@ -18,6 +18,7 @@
         <!-- css -->
         <link rel="stylesheet" href="./css/font-awesome/css/font-awesome.min.css" type="text/css">
         <link rel="stylesheet" type="text/css" href="./css/index.css">
+        <link rel="stylesheet" type="text/css" href="./css/loading.css">
 
         <style>
             .hide_scroll::-webkit-scrollbar {
@@ -54,6 +55,11 @@
                 <button class="bg_color_change transition-all h-[34px] ml-2 bg-[#dadadabd] text-[#333] rounded-[17px] px-5 py-2 hover:bg-[#bababa]" onclick="set_location('jeonnam')">전라남도</button>
                 <button class="bg_color_change transition-all h-[34px] ml-2 bg-[#dadadabd] text-[#333] rounded-[17px] px-5 py-2 hover:bg-[#bababa]" onclick="set_location('gwangju')">광주</button>
                 <button class="bg_color_change transition-all h-[34px] ml-2 bg-[#dadadabd] text-[#333] rounded-[17px] px-5 py-2 hover:bg-[#bababa]" onclick="set_location('jeju')">제주도</button>
+            </div>
+
+            <!-- 로딩 -->
+            <div class="loading_box absolute w-full h-full bg-[#111111c7] z-20 hidden justify-center items-center transition-all">
+                <div class="loader"></div>
             </div>
 
             <!-- 위성사진 변경 -->
