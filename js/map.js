@@ -4,8 +4,8 @@ let y = urlParams.get('y');
 let id = urlParams.get('id');
 
 if (x == null || y == null) {
-    x = 37.56646;
-    y = 126.98121;
+    x = 36.1455;
+    y = 128.3926;
 }
 
 if (id == null) {
