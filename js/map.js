@@ -285,7 +285,11 @@ function close_safe_zone_box() {
 let now_pin = "shelter"
 
 
+
 function change_pin() {
+    const shelter_button = document.getElementById('shelter_button');
+    const residence_button = document.getElementById('residence_button');
+    
     if (now_pin === "shelter") {
         for (let shelter of shelter_marker_list) {
             shelter.setVisible(false);
@@ -296,6 +300,10 @@ function change_pin() {
         }
 
         now_pin = "interim_housing";
+
+        shelter_button.style.display = "none";
+        residence_button.style.display = "block";
+
     } else if (now_pin === "interim_housing") {
         for (let shelter of shelter_marker_list) {
             shelter.setVisible(true);
@@ -306,5 +314,8 @@ function change_pin() {
         }
 
         now_pin = "shelter";
+
+        shelter_button.style.display = "block";
+        residence_button.style.display = "none";
     }
 }

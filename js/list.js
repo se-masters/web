@@ -1,4 +1,3 @@
-
 function display_shelter() {
     const safe_zone_list = document.getElementById("safe_zone_list");
 
@@ -44,9 +43,20 @@ function display_shelter() {
                         }
                     safe_zone_list.innerHTML = shelter_list_html;
                 }
+                hide_loading_box()
             });
         });
     } else {
         safe_zone_list.innerHTML = '<h1 class="text-[#6F6864] mt-10">GPS가 차단되었거나<br>찾을 수 없어요. :(</h1>';
+        hide_loading_box()
     }
+}
+
+function hide_loading_box() {
+    const loading_box = document.getElementById("loading_box");
+    
+    loading_box.style.opacity = "0";
+    setTimeout(() => {
+        loading_box.style.display = "none";
+    }, 1500);
 }

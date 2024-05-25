@@ -16,9 +16,14 @@
         <!-- css -->
         <link rel="stylesheet" href="./css/font-awesome/css/font-awesome.min.css" type="text/css">
         <link rel="stylesheet" type="text/css" href="./css/index.css">
+        <link rel="stylesheet" type="text/css" href="./css/loading.css">
     </head>
 
     <body>
+        <div id="loading_box" class="absolute w-full h-full bg-[#111111c7] z-10 flex justify-center items-center transition-all">
+            <div class="loader"></div>
+        </div>
+
         <div class="flex justify-center pt-5">
             <div class="w-[400px] mx-4">
                 <p class="text-[25px] text-[#111] font-semibold">회원님의 위치 근처</p>
@@ -30,7 +35,7 @@
         </div>
 
         <!-- 하단바 -->
-        <div class="bg_color_change flex fixed justify-evenly items-center py-3 z-10 bg-[#dadadabd] w-[calc(100%-32px)] rounded-[35px] bottom-[30px] mx-4 transition-all ease-in-out lg:w-[400px]">
+        <div class="bg_color_change flex fixed justify-evenly items-center py-3 z-20 bg-[#dadadabd] w-[calc(100%-32px)] rounded-[35px] bottom-[30px] mx-4 transition-all ease-in-out lg:w-[400px]">
             <div>
                 <button onClick="location.href='/'"><img src="icons/map_grey.svg" alt="map"></button>
             </div>
