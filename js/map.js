@@ -36,7 +36,7 @@ function locationLoadSuccess(pos) {
     // 지도 이동(기존 위치와 가깝다면 부드럽게 이동)
     map.panTo(currentPos);
 
-    var imageSrc = './icons/me_color.png', // 마커이미지의 주소입니다
+    var imageSrc = './icons/me_color.webp', // 마커이미지의 주소입니다
     imageSize = new kakao.maps.Size(50, 60) // 마커이미지의 크기입니다
 
     // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
@@ -168,8 +168,8 @@ function setMapType() {
 
 
 // 마커 이미지의 이미지 주소입니다
-let shelterImageSrc = "icons/shelter_color.png";
-let residenceImageSrc = "icons/residence_color.png";
+let shelterImageSrc = "icons/shelter_color.webp";
+let residenceImageSrc = "icons/residence_color.webp";
 
 // 마커 이미지의 이미지 크기 입니다
 var imageSize = new kakao.maps.Size(25, 30);
@@ -289,7 +289,7 @@ let now_pin = "shelter"
 function change_pin() {
     const shelter_button = document.getElementById('shelter_button');
     const residence_button = document.getElementById('residence_button');
-    
+
     if (now_pin === "shelter") {
         for (let shelter of shelter_marker_list) {
             shelter.setVisible(false);
