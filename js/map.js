@@ -240,9 +240,6 @@ axios.get(domain + interim_housing_api).then((response) => {
 // 지진 마커 생성
 axios.get(domain + earthquake_api).then((response) => {
     for (let earthquake of response.data) {
-
-        console.log(earthquake)
-
         displayEarthquakeMarker({
             loc: earthquake.loc, // 주소
             mt: earthquake.mt, // 진도
@@ -287,7 +284,6 @@ function displayEarthquakeMarker(location) {
     });
 
     infowindow.open(map, marker);
-
 
     return marker;
 }
