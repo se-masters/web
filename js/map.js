@@ -1,12 +1,10 @@
 const urlParams = new URLSearchParams(window.location.search);
-let x = urlParams.get('x');
-let y = urlParams.get('y');
 let id = urlParams.get('id');
-
-if (x == null || y == null) {
-    x = 36.1455;
-    y = 128.3926;
-}
+let currentPos = null;
+let destination_x = null;
+let destination_y = null;
+let x = 36.1455;
+let y = 128.3926;
 
 if (id == null) {
     id = "";
@@ -31,8 +29,8 @@ let my_location_marker = new kakao.maps.Marker();
 // 내 위치 마커 START
 function locationLoadSuccess(pos) {
     // 현재 위치 받아오기
-    var currentPos = new kakao.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-
+    currentPos = new kakao.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+    
     // 지도 이동(기존 위치와 가깝다면 부드럽게 이동)
     map.panTo(currentPos);
 
@@ -64,6 +62,7 @@ function getCurrentPosBtn() {
 };
 // 내 위치 마커 END
 
+getCurrentPosBtn();
 
 // 주소-좌표 변환 객체를 생성합니다
 var geocoder = new kakao.maps.services.Geocoder();
@@ -274,6 +273,8 @@ function open_safe_zone_box(location) {
     } else {
         document.getElementsByClassName('manager_phnum')[0].style.display = "none";
     }
+    destination_x = location.latlng.getLat();
+    destination_y = location.latlng.getLng();
 }
 
 function close_safe_zone_box() {
@@ -319,3 +320,5 @@ function change_pin() {
         residence_button.style.display = "none";
     }
 }
+
+

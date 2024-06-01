@@ -9,6 +9,7 @@
         
         <!-- js -->
         <script type="text/javascript" src="./js/variable.js" defer></script>
+        <script type="text/javascript" src="./js/navigator.js" defer></script>
         <script type="text/javascript" src="./js/map.js" defer></script>
         <script src="https://cdn.tailwindcss.com"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -35,6 +36,9 @@
         <div id="map" class="h-full w-full relative">
             <!--검색창 -->
             <input type="text" class="bg_color_change search absolute h-12 w-[calc(100%-32px)] px-8 mx-4 mt-4 rounded-[30px] bg-[#dadadabd] z-10 placeholder:text-[#333] outline-none focus:outline-none transition-all ease-in-out lg:w-[400px]" placeholder="&#xF002; 지역, 건물명, 도로명을 검색하세요" onkeypress="if (event.keyCode == 13) {searchPlaces();}"/>
+            <button class="bg_color_change absolute h-12 w-24 px-8 mx-4 mt-36 rounded-[30px] bg-[#dadadabd] z-10 placeholder:text-[#333] outline-none focus:outline-none transition-all ease-in-out lg:w-[400px]" onclick="getCarDirection()">길찾기</button>
+
+
 
             <!-- 지정 위치 -->
             <div class="hide_scroll absolute z-10 w-[calc(100%-32px)] whitespace-nowrap overflow-x-auto ml-2 text-[#333] transition-all ease-in-out lg:w-[400px] top-[70px]">
