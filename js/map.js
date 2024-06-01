@@ -169,15 +169,18 @@ function setMapType() {
 // 마커 이미지의 이미지 주소입니다
 let shelterImageSrc = "icons/shelter_color.webp";
 let residenceImageSrc = "icons/residence_color.webp";
+let earthquakeImageSrc = "icons/earthquake.webp";
 
 // 마커 이미지의 이미지 크기 입니다
 var imageSize = new kakao.maps.Size(25, 30);
+var imageSizeBig = new kakao.maps.Size(40, 48);
 
 var cafeteria_list_box = document.getElementById('cafeteria_list_box')
 
 // 마커 이미지를 생성합니다
 let shelterMarkerImage = new kakao.maps.MarkerImage(shelterImageSrc, imageSize);
 let residenceMarkerImage = new kakao.maps.MarkerImage(residenceImageSrc, imageSize);
+let earthquakeImage = new kakao.maps.MarkerImage(earthquakeImageSrc, imageSizeBig);
 
 let marker;
 let shelter_marker_list = []
@@ -233,6 +236,18 @@ axios.get(domain + interim_housing_api).then((response) => {
     }
 });
 
+// 지진 마커 생성
+axios.get(domain + earthquake_api).then((response) => {
+    for (let earthquake of response.data) {
+        displayEarthquakeMarker({
+            loc: earthquake.loc, // 주소
+            mt: earthquake.mt, // 진도
+            latlng: new kakao.maps.LatLng(Number(earthquake.lat), Number(earthquake.lon)) // 위도, 경도
+        })
+    }
+});
+
+
 function displayMarker(location) {
     if (location.safe_zone_type == "shelter") {
         var markerImage = shelterMarkerImage;
@@ -250,6 +265,24 @@ function displayMarker(location) {
     kakao.maps.event.addListener(marker, 'click', function() {
         open_safe_zone_box(location)
     });
+
+    return marker;
+}
+
+function displayEarthquakeMarker(location) {
+    let content = "<div class='p-[5px] text-[12px]'>" + location.loc + "<br>진도 : " + location.mt + "</div>"
+    var marker = new kakao.maps.Marker({
+        map: map,
+        position: location.latlng, // 마커를 표시할 위치
+        image: earthquakeImage, // 마커 이미지
+    });
+
+    var infowindow = new kakao.maps.InfoWindow({
+        position: location.latlng,
+        content : content,
+    });
+
+    infowindow.open(map, marker);
 
     return marker;
 }
