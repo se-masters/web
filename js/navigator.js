@@ -7,7 +7,7 @@ async function getCarDirection() {
 
     if (currentPos) {
         // Use current position if available
-        console.log("Success")
+        //console.log("Success");
         origin_x = currentPos.getLat();
         origin_y = currentPos.getLng();
     } else {
@@ -40,7 +40,7 @@ async function getCarDirection() {
         }
 
         const data = await response.json();
-        console.log(data);
+        //console.log(data);
 
         const linePath = [];
         data.routes[0].sections[0].roads.forEach(router => {
