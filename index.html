@@ -56,9 +56,6 @@
         <div id="map" class="h-full w-full relative">
             <!--검색창 -->
             <input type="text" class="bg_color_change search absolute h-12 w-[calc(100%-32px)] px-8 mx-4 mt-4 rounded-[30px] bg-[#dadadabd] z-10 placeholder:text-[#333] outline-none focus:outline-none transition-all ease-in-out lg:w-[400px]" placeholder="&#xF002; 지역, 건물명, 도로명을 검색하세요" onkeypress="if (event.keyCode == 13) {searchPlaces();}"/>
-            <button class="bg_color_change absolute h-12 w-24 px-8 mx-4 mt-36 rounded-[30px] bg-[#dadadabd] z-10 placeholder:text-[#333] outline-none focus:outline-none transition-all ease-in-out lg:w-[400px]" onclick="getCarDirection()">길찾기</button>
-
-
 
             <!-- 지정 위치 -->
             <div class="hide_scroll absolute z-10 w-[calc(100%-32px)] whitespace-nowrap overflow-x-auto ml-2 text-[#333] transition-all ease-in-out lg:w-[400px] top-[70px]">
@@ -155,6 +152,10 @@
                                 <i class="fa fa-phone" aria-hidden="true" style="color: #ffffff; font-size: 30px;"></i>
                             </div>
                         </a>
+                    </div>
+
+                    <div id="find_path" class="flex justify-center items-center p-2 mt-2 rounded-[14px] border-2 border-black cursor-pointer hover:bg-black hover:text-white transition-all">
+                        <p>길찾기</p>
                     </div>
                 </div>
             </div>

@@ -1,8 +1,7 @@
 const urlParams = new URLSearchParams(window.location.search);
 let id = urlParams.get('id');
 let currentPos = null;
-let destination_x = null;
-let destination_y = null;
+
 let x = 36.1455;
 let y = 128.3926;
 
@@ -306,8 +305,10 @@ function open_safe_zone_box(location) {
     } else {
         document.getElementsByClassName('manager_phnum')[0].style.display = "none";
     }
-    destination_x = location.latlng.getLat();
-    destination_y = location.latlng.getLng();
+
+    document.getElementById('find_path').onclick = function() {
+        getCarDirection(location.latlng.getLat(), location.latlng.getLng());
+    }
 }
 
 function close_safe_zone_box() {

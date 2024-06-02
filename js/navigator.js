@@ -1,6 +1,6 @@
 let currentPolyline = null; // 기존 polyline을 저장할 변수
 
-async function getCarDirection() {
+async function getCarDirection(destination_x, destination_y) {
     let origin_x, origin_y;
 
     close_safe_zone_box();
@@ -52,9 +52,7 @@ async function getCarDirection() {
         });
 
         // 기존 polyline을 제거
-        if (currentPolyline) {
-            currentPolyline.setMap(null);
-        }
+        clean_navi();
 
         // 새로운 polyline을 생성하고 저장
         currentPolyline = new kakao.maps.Polyline({
@@ -69,5 +67,11 @@ async function getCarDirection() {
 
     } catch (error) {
         console.error('Error:', error);
+    }
+}
+
+function clean_navi() {
+    if (currentPolyline) {
+        currentPolyline.setMap(null);
     }
 }
