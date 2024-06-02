@@ -25,7 +25,10 @@ function display_shelter() {
 
                         shelter_list_html += '<a href="/?id=' + shelter.id + '">'+
                             '    <div class="bg-[#e6e6e6] rounded-[15px] px-6 py-3 mb-2">'+
-                            '        <p class="text-[25px]">' + shelter.vtAcmdfcltyNm + '</p>'+
+                            '            <div class="flex justify-between items-end">'+
+                            '            <p class="text-[25px]">' + shelter.vtAcmdfcltyNm + '</p>'+
+                            '            <p class="text-[15px] text-[#707070]">' + Math.round(shelter.distance) / 1000 + 'KM</p>'+
+                            '        </div>'+
                             '        <p class="text-[15px] text-[#707070]">' + shelter.dtlAdres + '</p>'+
                             '        <div class="mt-3">'+
                             '            <p class="text-[15px] text-[#707070]">분류</p>'+
@@ -54,7 +57,7 @@ function display_shelter() {
 
 function hide_loading_box() {
     const loading_box = document.getElementById("loading_box");
-    
+
     loading_box.style.opacity = "0";
     setTimeout(() => {
         loading_box.style.display = "none";
