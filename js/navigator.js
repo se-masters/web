@@ -1,6 +1,8 @@
 let currentPolyline = null; // 기존 polyline을 저장할 변수
 
 async function getCarDirection(destination_x, destination_y) {
+    navi_mode();
+
     let origin_x, origin_y;
 
     close_safe_zone_box();
@@ -74,4 +76,26 @@ function clean_navi() {
     if (currentPolyline) {
         currentPolyline.setMap(null);
     }
+}
+
+function navi_mode() {
+    document.getElementById("search").style.marginTop = "-100px";
+    document.getElementById("fastmove").style.top = "-100px";
+
+    document.getElementById("satelite").style.marginTop = "80px";
+    document.getElementById("shelter").style.marginTop = "150px";
+
+    document.getElementById("back").style.marginLeft = "16px";
+}
+
+function map_mode() {
+    clean_navi();
+
+    document.getElementById("search").style.marginTop = "16px";
+    document.getElementById("fastmove").style.top = "70px";
+
+    document.getElementById("satelite").style.marginTop = "120px";
+    document.getElementById("shelter").style.marginTop = "190px";
+
+    document.getElementById("back").style.marginLeft = "-80px";
 }

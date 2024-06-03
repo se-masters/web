@@ -16,3 +16,7 @@ html, body {
 * {
     font-family: GmarketSansTTF, FontAwesome;
 }
+
+#shelter:hover ~ #shelter_description {
+    display: block;
+}
