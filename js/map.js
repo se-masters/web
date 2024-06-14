@@ -73,7 +73,7 @@ let default_location = {
     "ulsan": new kakao.maps.LatLng(35.5390653, 129.3103105),
     "busan": new kakao.maps.LatLng(35.1793999, 129.0739666),
     "daegu": new kakao.maps.LatLng(35.8712121, 128.6010165),
-    "gangwon": new kakao.maps.LatLng(37.8306817, 127.6797105),
+    "gangwon": new kakao.maps.LatLng(37.8858, 127.7297),
     "gyeonggi": new kakao.maps.LatLng(37.2749107, 127.0070014),
     "gyeongsangnam": new kakao.maps.LatLng(35.2382949, 128.6902093),
     "gyeongsangbuk": new kakao.maps.LatLng(36.5773712, 128.503755),
