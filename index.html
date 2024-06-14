@@ -98,17 +98,17 @@
                 </div>
             </button>
 
-            <!-- 우측 버튼 세트 -->
-            <div class="absolute z-10 right-4 mt-[120px]">
-                <!-- 현위치 -->
-                <button class="bg_color_change compass flex items-center justify-center w-[60px] h-[60px] rounded-[75px] bg-[#dadadabd]" onclick="getCurrentPosBtn()">
-                    <div class="compassicon">
-                        <img src="icons/compass_grey.svg" alt="compass"
-                         onmouseover="this.src='icons/compass_selected.svg'"
-                         onmouseout="this.src='icons/compass_grey.svg'">
-                    </div>
-                </button>
+            <!-- 현위치 -->
+            <button id="compass" class="bg_color_change compass flex items-center justify-center absolute z-10 right-4 mt-[120px] w-[60px] h-[60px] rounded-[75px] bg-[#dadadabd]" onclick="getCurrentPosBtn()">
+                <div class="compassicon">
+                    <img src="icons/compass_grey.svg" alt="compass"
+                    onmouseover="this.src='icons/compass_selected.svg'"
+                    onmouseout="this.src='icons/compass_grey.svg'">
+                </div>
+            </button>
 
+            <!-- 우측 버튼 세트 -->
+            <div class="absolute z-10 right-4 mt-[180px]">
                 <!-- 줌인/아웃 -->
                 <div class="bg_color_change mt-[10px] w-[60px] h-[100px] flex flex-col items-center justify-center bg-[#dadadabd] rounded-[34px]">
                     <button class="" onclick="zoomIn()">
@@ -131,9 +131,19 @@
                 </div>
             </button>
 
-            <!-- 대피소 전환 버튼 설명 버튼 -->
-            <div id="shelter_description" class="absolute hidden z-10 bg-[#ffffffb3] p-2 rounded-[14px] ml-24 mt-48">
+            <!-- 대피소 전환 버튼 설명 -->
+            <div id="shelter_description" class="absolute hidden z-10 bg-[#ffffffb3] p-2 rounded-[14px] ml-24 mt-48 text-center">
                 <p>< 대피소와 임시거주지를<br>전환할 수 있습니다</p>
+            </div>
+
+            <!-- GPS 버튼 설명 -->
+            <div id="gps_description" class="absolute hidden z-10 bg-[#ffffffb3] p-2 rounded-[14px] right-24 mt-[120px] text-center">
+                <p>현 위치를 ><br>표시할 수 있습니다</p>
+            </div>
+
+            <!-- 위성사진 전환 버튼 설명 -->
+            <div id="mapchange_description" class="absolute hidden z-10 bg-[#ffffffb3] p-2 rounded-[14px] left-24 mt-[120px] text-center">
+                <p>< 일반지도/위성사진을<br>전환할 수 있습니다</p>
             </div>
 
             <!-- 대피소 상세정보 -->
