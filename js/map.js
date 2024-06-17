@@ -185,6 +185,17 @@ let marker;
 let shelter_marker_list = []
 let interim_housing_list = []
 
+// 지진 마커 생성
+axios.get(domain + earthquake_api).then((response) => {
+    for (let earthquake of response.data) {
+        displayEarthquakeMarker({
+            loc: earthquake.loc, // 주소
+            mt: earthquake.mt, // 진도
+            latlng: new kakao.maps.LatLng(Number(earthquake.lat), Number(earthquake.lon)) // 위도, 경도
+        })
+    }
+});
+
 // 대피소 마커 생성
 let marker_json;
 axios.get(domain + shelter_api).then((response) => {
@@ -232,17 +243,6 @@ axios.get(domain + interim_housing_api).then((response) => {
         marker.setVisible(false);
 
         interim_housing_list.push(marker);
-    }
-});
-
-// 지진 마커 생성
-axios.get(domain + earthquake_api).then((response) => {
-    for (let earthquake of response.data) {
-        displayEarthquakeMarker({
-            loc: earthquake.loc, // 주소
-            mt: earthquake.mt, // 진도
-            latlng: new kakao.maps.LatLng(Number(earthquake.lat), Number(earthquake.lon)) // 위도, 경도
-        })
     }
 });
 
