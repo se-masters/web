@@ -29,7 +29,7 @@ let my_location_marker = new kakao.maps.Marker();
 function locationLoadSuccess(pos) {
     // 현재 위치 받아오기
     currentPos = new kakao.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-    
+
     // 지도 이동(기존 위치와 가깝다면 부드럽게 이동)
     map.panTo(currentPos);
 
@@ -185,6 +185,8 @@ let marker;
 let shelter_marker_list = []
 let interim_housing_list = []
 
+let status = [0, 0, 0, 0]
+
 // 지진 마커 생성
 axios.get(domain + earthquake_api).then((response) => {
     for (let earthquake of response.data) {
@@ -194,6 +196,8 @@ axios.get(domain + earthquake_api).then((response) => {
             latlng: new kakao.maps.LatLng(Number(earthquake.lat), Number(earthquake.lon)) // 위도, 경도
         })
     }
+
+    status[0] = 1;
 });
 
 // 대피소 마커 생성
@@ -219,11 +223,12 @@ axios.get(domain + shelter_api).then((response) => {
                 document.getElementsByClassName('loading_box')[0].style.display = "none";
             }, 1500);
         }
-        
+
         marker = displayMarker(marker_json)
 
         shelter_marker_list.push(marker);
     }
+    status[1] = 1;
 });
 
 // 임시주거시설 마커 생성
@@ -244,6 +249,7 @@ axios.get(domain + interim_housing_api).then((response) => {
 
         interim_housing_list.push(marker);
     }
+    status[2] = 1;
 });
 
 
@@ -356,3 +362,10 @@ function change_pin() {
 }
 
 
+// status 가 1, 1, 1 이면 중심좌표
+let interval = setInterval(() => {
+    if (status[0] === 1 && status[1] === 1 && status[2] === 1 && status[3] === 0 && id === "") {
+        status[3] = 1
+        getCurrentPosBtn();
+    }
+}, 1000);
